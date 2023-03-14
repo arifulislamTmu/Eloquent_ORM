@@ -46,6 +46,7 @@ class StudentController extends Controller
          $student->user_id = $user_id;
          $student->save();
          return redirect()->back();
+         
     }
 
     /**
