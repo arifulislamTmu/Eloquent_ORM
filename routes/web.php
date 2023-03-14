@@ -37,3 +37,12 @@ Route::resource('student', StudentController::class);
 
 
 require __DIR__.'/auth.php';
+
+
+
+// git init
+// git add README.md
+// git commit -m "first commit"
+// git branch -M main
+// git remote add origin https://github.com/arifulislamTmu/test.git
+// git push -u origin main
