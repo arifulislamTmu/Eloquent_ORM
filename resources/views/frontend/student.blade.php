@@ -4,7 +4,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header text-center d-flex justify-content-between">
-                        <div><h4>Resource Controller & Route </h4></div>
+                        <div>
+                            <h4>Resource Controller & Route </h4>
+                        </div>
                         <div><a href="{{ url('/') }}" class="btn btn-primary"> Back </a></div>
                     </div>
                     <div class="card-body">
@@ -23,25 +25,28 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($students as $key=> $student)
-                                                <tr class="">
-                                                    <td scope="row">{{ ++$key }}</td>
-                                                    <td>{{ $student->name }}</td>
-                                                    <td>{{ $student->group }}</td>
-                                                    <td>{{ $student->user->name }}</td>
-                                                    <td class="d-flex">
-                                                        <a class="btn btn-primary" href="{{ url('student/'.$student->id.'/edit') }}">Edit</a>
-                                                       <form action="{{ url('student/'.$student->id) }}" method="post">
-                                                        @csrf
-                                                        @method("DELETE")
-                                                          <button type="submit" class="btn btn-danger">Delete</button>
-                                                       </form>
-                                                        
-                                                    </td>
-                                                </tr>
+                                                @foreach ($students as $key => $student)
+                                                    <tr class="">
+                                                        <td scope="row">{{ ++$key }}</td>
+                                                        <td>{{ $student->name }}</td>
+                                                        <td>{{ $student->group }}</td>
+                                                        <td>{{ $student->user->name }}</td>
+                                                        <td class="d-flex">
+                                                            <a class="btn btn-primary"
+                                                                href="{{ url('student/' . $student->id . '/edit') }}">Edit</a>
+                                                            <form action="{{ url('student/' . $student->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Delete</button>
+                                                            </form>
+
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
-                                              
-                                             
+
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -51,21 +56,27 @@
                                 <div class="card">
                                     <form action="{{ url('student') }}" method="post">
                                         @csrf
-                                    <div class="card-header">
-                                        <h5>Student Add</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Name</label>
-                                            <input type="text" class="form-control" name="name">
+                                        <div class="card-header">
+                                            <h5>Student Add</h5>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Group</label>
-                                            <input type="text" class="form-control" name="group">
+                                        <div class="card-body">
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Name</label>
+                                                <input type="text" class="form-control" name="name">
+                                                @error('name')
+                                                    <span>{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Group</label>
+                                                <input type="text" class="form-control" name="group">
+                                                @error('group')
+                                                    <span>{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <button class="btn btn-success">Submit</button>
                                         </div>
-                                        <button class="btn btn-success">Submit</button>
-                                    </div>
-                                </form>
+                                    </form>
                                 </div>
                             </div>
                         </div>
