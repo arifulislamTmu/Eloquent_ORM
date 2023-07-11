@@ -36,18 +36,19 @@
                                                         @method("DELETE")
                                                           <button type="submit" class="btn btn-danger">Delete</button>
                                                        </form>
-                                                        
+
                                                     </td>
                                                 </tr>
                                                 @endforeach
-                                              
-                                             
+
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-4">
+
                                 <div class="card">
                                     <form action="{{ url('student') }}" method="post">
                                         @csrf

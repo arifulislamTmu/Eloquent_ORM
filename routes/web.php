@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
+use App\Models\Post;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $data['students'] = Student::latest()->get();
-    return  view('frontend.home', $data);
+    // $data['comments'] = Post::with('comments')->get();
+
+    // return  $data;
 });
+
+
+// Route::get('/', function () {
+//     $data['students'] = Student::latest()->get();
+//     $data['comments'] = Post::with('comments')->get();
+//     // return $comments;
+//     return  view('frontend.home', $data);
+// });
 
 
 Route::get('/dashboard', function () {
@@ -30,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 

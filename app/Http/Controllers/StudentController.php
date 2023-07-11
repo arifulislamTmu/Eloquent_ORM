@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class StudentController extends Controller
 {
@@ -15,8 +16,14 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $data['students'] = Student::latest()->get();
-        return  view('frontend.home', $data);
+        if (Cache::has('students')) {
+            $data['students'] = Cache::get('students');
+        }
+        if (Cache::has('edit_student')) {
+            $data['edit_student'] = Cache::get('edit_student');
+        }
+         return  view('frontend.home', $data);
+
     }
 
     /**
@@ -26,9 +33,25 @@ class StudentController extends Controller
      */
     public function create()
     {
-     
+
         $data['students'] = Student::where('user_id',Auth::user()->id)->latest()->get();
         return  view('frontend.student', $data);
+    }
+
+    public function testData()
+    {
+
+            $data['students'] = Student::latest()->get();
+            Cache::put('students', $data['students'], 86400);
+
+            // $data['edit_student'] = Student::where('id', 1)->get();
+            // Cache::put('edit_student', $data['edit_student'], 86400);
+    }
+
+    public function testData2()
+    {
+            $data['edit_student'] = Student::where('id', 1)->get();
+            Cache::put('edit_student', $data['edit_student'], 86400);
     }
 
     /**
@@ -39,14 +62,14 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-       $user_id = Auth::user()->id;
+         $user_id = 1;
          $student = new Student();
          $student->name = $request->name;
          $student->group = $request->group;
          $student->user_id = $user_id;
          $student->save();
          return redirect()->back();
-         
+
     }
 
     /**
@@ -71,7 +94,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $data['students'] = Student::latest()->get();
-        $edit_student= Student::findOrfail($id);
+        $edit_student = Student::findOrfail($id);
         return  view('frontend.student-edit', $data,compact('edit_student'));
     }
 
